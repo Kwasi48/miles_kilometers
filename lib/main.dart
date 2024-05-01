@@ -3,9 +3,21 @@ import 'package:flutter/widgets.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    _numberFrom = 0;
+    super.initState();
+  }
+
+  late double _numberFrom;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +27,21 @@ class MyApp extends StatelessWidget {
           title: Text('Measures Converter'),
         ),
         body: Center(
-          child: Text('Measures Converter'),
+          child: Column(
+            children: [
+              TextField(
+                onChanged: (text) {
+                  var rv = double.tryParse(text);
+                  if (rv != null) {
+                    setState(() {
+                      _numberFrom = rv;
+                    });
+                  }
+                },
+              ),
+              Text((_numberFrom == null) ? '' : _numberFrom.toString())
+            ],
+          ),
         ),
       ),
     );
