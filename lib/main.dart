@@ -50,92 +50,98 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Measures Converter'),
         ),
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              Spacer(),
-              Text(
-                'Value',
-                style: labelStyle,
-              ),
-              Spacer(),
-              TextField(
-                style: inputStyle,
-                decoration: InputDecoration(
-                  hintText: "Please insert the measure to be converted",
-                ),
-                onChanged: (text) {
-                  var rv = double.tryParse(text);
-                  if (rv != null) {
-                    setState(() {
-                      _numberFrom = rv;
-                    });
-                  }
-                },
-              ),
-              Spacer(),
-              Text(
-                'From',
-                style: labelStyle,
-              ),
-              DropdownButton(
-                items: _measures.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _startMeasure = value;
-                  });
-                },
-                value: _startMeasure,
-              ),
-              Spacer(),
-              Text(
-                'To',
-                style: labelStyle,
-              ),
-              DropdownButton(
-                items: _measures.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _convertedMeasure = value;
-                  });
-                },
-                value: _convertedMeasure,
-              ),
-              Spacer(
-                flex: 2,
-              ),
-              ElevatedButton(
-                  onPressed: () => true,
-                  child: Text(
-                    'convert',
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          //SingleChildScrollView always takes a fixed height.
+          child: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Text(
+                    'Value',
+                    style: labelStyle,
+                  ),
+                  const Spacer(),
+                  TextField(
                     style: inputStyle,
-                  )),
-              Spacer(
-                flex: 2,
+                    decoration: const InputDecoration(
+                      hintText: "Please insert the measure to be converted",
+                    ),
+                    onChanged: (text) {
+                      var rv = double.tryParse(text);
+                      if (rv != null) {
+                        setState(() {
+                          _numberFrom = rv;
+                        });
+                      }
+                    },
+                  ),
+                  Spacer(),
+                  Text(
+                    'From',
+                    style: labelStyle,
+                  ),
+                  DropdownButton(
+                    items: _measures.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _startMeasure = value;
+                      });
+                    },
+                    value: _startMeasure,
+                  ),
+                  Spacer(),
+                  Text(
+                    'To',
+                    style: labelStyle,
+                  ),
+                  DropdownButton(
+                    items: _measures.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _convertedMeasure = value;
+                      });
+                    },
+                    value: _convertedMeasure,
+                  ),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  ElevatedButton(
+                      onPressed: () => true,
+                      child: Text(
+                        'convert',
+                        style: inputStyle,
+                      )),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  TextField(
+                    onChanged: (text) {
+                      var rv = double.tryParse(text);
+                      if (rv != null) {
+                        setState(() {
+                          _numberFrom = rv;
+                        });
+                      }
+                    },
+                  ),
+                  Text((_numberFrom == null) ? '' : _numberFrom.toString()),
+                  Spacer(flex: 8),
+                ],
               ),
-              TextField(
-                onChanged: (text) {
-                  var rv = double.tryParse(text);
-                  if (rv != null) {
-                    setState(() {
-                      _numberFrom = rv;
-                    });
-                  }
-                },
-              ),
-              Text((_numberFrom == null) ? '' : _numberFrom.toString()),
-              Spacer(flex: 8),
-            ],
+            ),
           ),
         ),
       ),
