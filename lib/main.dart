@@ -12,10 +12,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final Map<String, int> _measureMap = {
-    'meteres': 0,
+    'meters': 0,
     'kilometers': 1,
     'grams': 2,
-    'kilograms': 2,
+    'kilograms': 3,
     'feet': 4,
     'miles': 5,
     'pounds (lbs)': 6,
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
 
   final List<String> _measures = [
     'meters',
-    'kilometeres',
+    'kilometers',
     'grams',
     'kilograms',
     'feet',
@@ -159,16 +159,6 @@ class _MyAppState extends State<MyApp> {
                   Spacer(
                     flex: 2,
                   ),
-                  TextField(
-                    onChanged: (text) {
-                      var rv = double.tryParse(text);
-                      if (rv != null) {
-                        setState(() {
-                          _numberFrom = rv;
-                        });
-                      }
-                    },
-                  ),
                   Text(
                     (_resultMessage == null) ? '' : _resultMessage!,
                     style: labelStyle,
@@ -184,8 +174,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void convert(double value, String from, String to) {
-    int? nFrom = _measureMap[from];
-    int? nTo = _measureMap[to];
+    int nFrom = _measureMap[from]!;
+    int nTo = _measureMap[to]!;
     var multiplier = _formulas[nFrom.toString()][nTo];
     var result = value * multiplier;
 
